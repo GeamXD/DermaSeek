@@ -115,10 +115,13 @@ Use the following queries in the interface to test various search functionalitie
 
 ---
 ## Hosted On GradioSpace`
+[Check out the Demo on Huggingface Spaces](https://huggingface.co/spaces/geamxd/Dermatology-Case)
 
 ---
 
 ## Video Demo**
+[Watch the Demo on YouTube](??)
+
 
 ---
 
