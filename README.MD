@@ -114,12 +114,12 @@ Use the following queries in the interface to test various search functionalitie
 - **Audio Search**: Describe symptoms in audio format.
 
 ---
-## Hosted On GradioSpace`
-[Check out the Demo on Huggingface Spaces](https://huggingface.co/spaces/geamxd/Dermatology-Case)
+## Hosted On GradioSpace
+[Check out the Demo](https://huggingface.co/spaces/geamxd/Dermatology-Case)
 
 ---
 
-## Video Demo**
+## Video Demo
 [Watch the Demo on YouTube](??)
 
 
