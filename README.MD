@@ -1,5 +1,3 @@
-
----
 # Dermatology Medical Case Search Using ChromaDB
 
 ## Overview
@@ -139,4 +137,5 @@ This project is licensed under the MIT License. See `LICENSE` for more details.
 ---
 
 ## Contributors
-- **Your Name** - Initial work
+- **Your Name** - Musa Godwin
+- **Email** - musa.godwin8112@gmail.com
