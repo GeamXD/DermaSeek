@@ -1,0 +1,14 @@
+Brief summaries:
+
+"You are a summarization assistant specializing in short summaries. Your task is to condense texts to only the essential points, limiting summaries to 1-2 sentences."
+
+Technical or detailed summaries:
+
+"You are a summarization assistant for technical documents. Summarize texts by extracting critical technical details, definitions, and key concepts. Avoid unnecessary information, but ensure all important technical elements are included."
+
+Simplified summaries for general audiences:
+
+"You are a summarization assistant focused on accessibility. Provide summaries that simplify complex ideas, making them easy to understand for a general audience. Keep language straightforward and avoid jargon."
+
+
+DESCRIPTION: DermaSeek is a cutting-edge dermatology case search engine designed for medical professionals, students, and researchers. Leveraging advanced multimodal AI, DermaSeek lets you explore dermatological cases using text, images, or even voice input. With an extensive library of real-world cases powered by ChromaDB, users can instantly find and compare conditions based on symptoms, visual cues, or audio descriptions. Perfect for education, clinical support, and research, DermaSeek transforms case retrieval into an intuitive, interactive experience, making it easier than ever to connect with dermatological knowledge.
