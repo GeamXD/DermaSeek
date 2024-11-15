@@ -1,160 +1,147 @@
-# Dermatology Medical Case Search Using ChromaDB
+# DermaSeek 🔎
+
+## Educational Purpose Disclaimer
+DermaSeek is developed strictly for educational and research purposes. It is not intended for medical diagnosis or treatment decisions. Always consult qualified healthcare professionals for medical advice.
 
 ## Overview
-This project implements an advanced image and data retrieval system for dermatology medical cases using ChromaDB. The primary goal is to enable users to efficiently search for dermatological cases by using text, image, or audio queries. This project uses data collected from the **DermNetNZ** case collection, providing a real-world solution for dermatological reference and research.
+DermaSeek is an AI-powered dermatology case search engine that enables medical students, researchers, and educators to explore dermatological cases through text, image, and speech queries. The system utilizes advanced embedding techniques and multimodal search capabilities to find relevant cases from a curated database.
 
 ## Features
-- **Case Retrieval**: Search by text, image, or audio descriptions.
-- **Image and Text Embeddings**: Uses CLIP for image embeddings and Sentence Transformers for text embeddings.
-- **Audio Transcription**: Converts spoken descriptions to text for case search.
-- **Gradio Interface**: A user-friendly web interface for interactive queries.
-- **ChromaDB Integration**: Efficient storage and retrieval with ChromaDB collections.
+- **Multimodal Search**:
+  - Text-based search for symptoms and conditions
+  - Image-based search using medical photographs
+  - Speech-to-text search capabilities
+- **AI-Powered Analysis**:
+  - Case summarization using LLaMA 3.2
+  - Semantic similarity matching
+  - CLIP-based image understanding
+- **Text-to-Speech**:
+  - Multi-language support (US English, UK English, Indian English, Arabic, French)
+  - High-quality speech synthesis
+- **Interactive Interface**:
+  - Suggested query recommendations
+  - Adjustable number of results
+  - Related content linking
+  - Performance metrics display
 
----
-
-## Technologies and Libraries
-
-- **Data Processing**: `requests`, `BeautifulSoup`, `json`, `base64`
-- **Image and Text Embeddings**: `transformers`, `sentence_transformers`, `sklearn`
-- **Audio Processing**: `whisper` model
-- **Database**: `chromadb`
-- **User Interface**: `gradio`
-- **Utilities**: `uuid`, `PIL`, `io`, `time`
-
----
-
-## Directory Structure
-The project consists of the following primary files:
-
-```plaintext
-.
-├── data
-│   └── cases_data.json      # JSON file containing dermatology cases in a structured format
-├── img
-│   └── [case_title].jpg     # Folder containing downloaded case images
-├── data_collection.py       # Script to collect data from DermNetNZ
-├── app.py                   # Main application and Gradio interface
-├── packages.txt             # Text containing required os package
-├── requirements.txt         # Text containing required python libraries
-└── README.md                # Project documentation
-```
-
----
-
-## Setup and Installation
+## Getting Started
 
 ### Prerequisites
 - Python 3.8+
-- Install required libraries:
-```bash
-pip install -r requirements.txt
-```
+- pip package manager
+- Git
 
 ### Installation
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/GeamXD/Advanced-Image-and-Data-Retrieval-System-Using-ChromaDB.git
-   cd Advanced-Image-and-Data-Retrieval-System-Using-ChromaDB
-   ```
-
-2. Install dependencies:
-   ```bash
-   pip install requests beautifulsoup4 sentence-transformers transformers chromadb gradio
-   ```
-
----
-
-## Data Collection
-
-### Running the Data Collection Script
-The `data_collection.py` script scrapes dermatology cases from DermNetNZ, saves case images in base64 format, and stores each case with its title, description, and background in `data/cases_data.json`.
-
-Run the script:
 ```bash
-python data_collection.py
+git clone https://github.com/yourusername/dermaseek.git
+cd dermaseek
 ```
 
----
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-## Application Structure
+3. Install system packages:
+```bash
+sudo apt-get update
+sudo apt-get install $(cat packages.txt)
+```
 
-### Main Application
-The `app.py` file builds and runs the primary application, leveraging ChromaDB for fast retrieval of text and image data, alongside models for embeddings and transcription.
+### Setting up Google Cloud Text-to-Speech
 
-**Key Functions**:
-- `get_text_embedding(text)`: Generates embeddings for text.
-- `get_image_embedding(base64_string)`: Generates embeddings for images.
-- `speech_to_text(audio_file_path)`: Transcribes audio descriptions to text.
-- `store_medical_case(case_data)`: Stores a single medical case with image and text into ChromaDB.
-- `search_medical_cases(query, n_results=2, include_related=True, mode="text")`: Searches medical cases in ChromaDB based on text, image, or audio queries.
+1. Create a Google Cloud Project:
+   - Go to [Google Cloud Console](https://console.cloud.google.com)
+   - Create a new project or select an existing one
+   - Enable the Cloud Text-to-Speech API
 
----
+2. Create a Service Account:
+   - Navigate to IAM & Admin > Service Accounts
+   - Click "Create Service Account"
+   - Grant "Cloud Text-to-Speech API User" role
+   - Create and download the JSON key file
 
-## Running the Application
+3. Configure Environment Variables:
+   Create a `.env` file in the project root:
+```env
+GCP_TYPE="service_account"
+GCP_PROJECT_ID="your-project-id"
+GCP_PRIVATE_KEY_ID="your-private-key-id"
+GCP_PRIVATE_KEY="your-private-key"
+GCP_CLIENT_EMAIL="your-client-email"
+GCP_CLIENT_ID="your-client-id"
+GCP_AUTH_URI="https://accounts.google.com/o/oauth2/auth"
+GCP_TOKEN_URI="https://oauth2.googleapis.com/token"
+GCP_AUTH_PROVIDER_CERT_URL="https://www.googleapis.com/oauth2/v1/certs"
+GCP_CLIENT_CERT_URL="your-client-cert-url"
+```
 
-1. Start the Gradio interface:
-   ```bash
-   python app.py
-   ```
-2. **User Interface**: Access the application in your browser at `http://127.0.0.1:7860` (default Gradio URL).
+### Setting up Together AI
 
-### Gradio UI
-The interface allows users to:
-- Search for dermatological cases by text, image, or audio.
-- View results with match scores and related case information.
-- Check performance metrics like total cases, successful loads, and query times.
+1. Sign up at [Together AI](https://www.together.ai)
+2. Get your API key from the dashboard
+3. Add to your `.env` file:
+```env
+TOGETHER_API_KEY="your-api-key"
+```
 
----
+## Usage
 
-## Example Queries
-Use the following queries in the interface to test various search functionalities:
-- **Text Search**: "Red, itchy skin" or "Blistering rash"
-- **Image Search**: Upload an image file of a dermatological case.
-- **Audio Search**: Describe symptoms in audio format.
+1. Start the application:
+```bash
+python app.py
+```
 
----
-## Hosted On GradioSpace
-[Check out the Demo](https://huggingface.co/spaces/geamxd/Dermatology-Case)
+2. Open your browser and navigate to `http://localhost:7860`
 
----
+3. Use the interface to:
+   - Search using text descriptions
+   - Upload images for visual search
+   - Record voice descriptions
+   - Generate speech from case summaries
 
-## Video Demo
-[Watch the Demo on YouTube](https://youtu.be/_HKWnIREYHs)
+## Directory Structure
+```
+.
+├── app.py                 # Main application file
+├── data/                  # Data storage
+│   └── cases_data.json   # Case database
+├── data_collection.py     # Data collection utilities
+├── img/                   # Image storage
+├── models.py             # ML model implementations
+├── output/               # Generated files
+└── requirements.txt      # Python dependencies
+```
 
----
+## Demo
+- Video Demo: [Watch on Loom](https://youtu.be/demo-link)
+- Live Demo: [Try DermaSeek](https://huggingface.co/spaces/geamxd/DermaSeek)
 
+## Future Improvements
+- [ ] Advanced filtering options
+- [ ] User authentication system
+- [ ] Case bookmarking
+- [ ] Export functionality
+- [ ] Batch processing
+- [ ] Custom model training
+- [ ] API endpoints
+- [ ] Mobile application
+- [ ] Improved visualization tools
+- [ ] Integration with medical databases
 
-## Future Work
-Potential improvements for this project include:
-- Expanding the data collection to cover additional dermatology sources.
-- Enhancing performance by optimizing embedding and search processes.
-- Developing a more granular tagging system for detailed case classification.
-
----
-
-## Real-World Use Cases
-
-1. **Medical Education**: Medical students and dermatology residents can use the tool to study various dermatological conditions by referencing real cases, improving their diagnostic skills through visual and textual case comparisons.
-
-2. **Clinical Diagnosis Support**: Dermatologists can search for visually or textually similar cases, aiding in differential diagnosis and helping to confirm or rule out specific conditions based on case comparisons.
-
-3. **Telemedicine Support**: Healthcare providers offering remote consultations can use the system to quickly retrieve cases with visual or symptomatic similarities, helping to guide initial treatment recommendations before in-person consultations.
-
-4. **Research and Data Analysis**: Researchers can leverage this resource to analyze case similarities, investigate disease patterns, and study treatment outcomes across dermatological conditions, aiding in medical research and development of new treatment methods.
----
-
+## Contributing
+Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) first.
 
 ## License
-This project is licensed under the MIT License. See `LICENSE` for more details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
-
-## Contributors
-- **Your Name** - Musa Godwin
-- **Email** - musa.godwin8112@gmail.com
-
----
+## Acknowledgments
+- DermNet NZ for the dermatology cases database
+- Together AI for LLM capabilities
+- Google Cloud for Text-to-Speech services
+- Open source community for various tools and libraries
 
 ## Disclaimer
-This project is intended for informational and educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider with any questions you may have regarding a medical condition. The authors are not responsible for any errors or omissions, or for any actions taken based on the information provided in this repository.
+This software is not intended for medical diagnosis. All medical decisions should be made by qualified healthcare professionals.
