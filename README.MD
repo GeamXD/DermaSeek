@@ -1,8 +1,5 @@
 # DermaSeek 🔎
 
-## Educational Purpose Disclaimer
-DermaSeek is developed strictly for educational and research purposes. It is not intended for medical diagnosis or treatment decisions. Always consult qualified healthcare professionals for medical advice.
-
 ## Overview
 DermaSeek is an AI-powered dermatology case search engine that enables medical students, researchers, and educators to explore dermatological cases through text, image, and speech queries. The system utilizes advanced embedding techniques and multimodal search capabilities to find relevant cases from a curated database.
 
@@ -176,6 +173,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Together AI for LLM capabilities
 - Google Cloud for Text-to-Speech services
 - Open source community for various tools and libraries
+
+## Educational Purpose Disclaimer
+DermaSeek is developed strictly for educational and research purposes. It is not intended for medical diagnosis or treatment decisions. Always consult qualified healthcare professionals for medical advice.
 
 ## Disclaimer
 This software is not intended for medical diagnosis. All medical decisions should be made by qualified healthcare professionals.
