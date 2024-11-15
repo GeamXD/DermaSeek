@@ -343,15 +343,15 @@ def create_interface():
                 text_output += f"**Background**: {result['metadata']['background']}\n\n"
 
                 # Summarize Case
-                summary_text, sum_time = md.summarize_case_ai(text_output)
-                # summary_text = md.summarize_case_hug(text_output)
+                # summary_text, _ = md.summarize_case_ai(text_output)
+                summary_text = md.summarize_case_hug(text_output)
 
-                # text_output += f"**Match Score**: {1 - result['distance']:.2%}\n\n"
+                # summary_text += f"\n\n**Match Score**: {1 - result['distance']:.2%}\n\n"
 
             return (
                 gallery_images,
-                str(summary_text),
-                f"**TOP Match Score**: {1 - results[0]['distance']:.2%}",
+                summary_text,
+                f"**TOP Match Score [CASE 1]**: {1 - results[0]['distance']:.2%}",
                 f"**⚡ Query Time**: {query_time:.3f}s"
             )
 

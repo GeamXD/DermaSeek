@@ -46,7 +46,7 @@ def summarize_case_ai(case: str) -> list[str, str]:
     response = client.chat.completions.create(
         model="meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo",
         messages=[
-          {"role": "system", "content": "You are a summarization assistant. Your goal is to provide clear, concise summaries that capture the main ideas, key points, and relevant details of the text while avoiding extraneous information. Aim for a summary that is informative but brief, adjusting the level of detail based on the text's length and complexity. Use neutral language and maintain clarity."},
+          {"role": "system", "content": "You are a summarization assistant. Your goal is to provide clear, concise summaries that capture the main ideas, key points, and relevant details of the text while avoiding extraneous information. Aim for a summary that is informative but brief, adjusting the level of detail based on the text's length and complexity. Use neutral language and maintain clarity"},
           {"role": "user", "content": f"{case}"},
         ],
         max_tokens=256,
@@ -151,7 +151,7 @@ if __name__ == '__main__':
         If convicted, Barrientos faces up to four years in prison.  Her next court appearance is scheduled for May 18.
 """
 
-    text_summary, time_taken = summarize_case_hug(ARTICLE)
+    text_summary, time_taken = summarize_case_ai(ARTICLE)
  
     print(
         f""""
