@@ -1,8 +1,5 @@
 # DermaSeek 🔎
 
-## Educational Purpose Disclaimer
-DermaSeek is developed strictly for educational and research purposes. It is not intended for medical diagnosis or treatment decisions. Always consult qualified healthcare professionals for medical advice.
-
 ## Overview
 DermaSeek is an AI-powered dermatology case search engine that enables medical students, researchers, and educators to explore dermatological cases through text, image, and speech queries. The system utilizes advanced embedding techniques and multimodal search capabilities to find relevant cases from a curated database.
 
@@ -110,7 +107,6 @@ python app.py
 │   └── cases_data.json   # Case database
 ├── data_collection.py     # Data collection utilities
 ├── img/                   # Image storage
-├── models.py             # ML model implementations
 ├── output/               # Generated files
 └── requirements.txt      # Python dependencies
 ```
@@ -119,19 +115,31 @@ python app.py
 - Video Demo: [Watch on Loom](https://youtu.be/demo-link)
 - Live Demo: [Try DermaSeek](https://huggingface.co/spaces/geamxd/DermaSeek)
 
-## Future Improvements
-- [ ] Advanced filtering options
-- [ ] User authentication system
-- [ ] Case bookmarking
-- [ ] Export functionality
-- [ ] Batch processing
-- [ ] Custom model training
-- [ ] API endpoints
-- [ ] Mobile application
-- [ ] Improved visualization tools
-- [ ] Integration with medical databases
+## APP OVERVIEW
+*Figure 1: App overview Interface*
+![Alt text for the image](images/app_overview.png)
 
-### Real-World Use Cases for DermaSeek 👀
+*Figure 2: Querying App Interface*
+![Alt text for the image](images/query.png)
+
+*Figure 3: Showing Audio recording Interface*
+![Alt text for the image](images/audio_recording.png)
+
+
+*Figure 4: Showing Image Search Interface*
+![Alt text for the image](images/image_search.png)
+
+*Figure 5: Showing Text search Interface*
+![Alt text for the image](images/text_search.png)
+
+*Figure 6: Showing Speech Search Interface*
+![Alt text for the image](images/speech_search.png)
+
+*Figure 7: Showing Text to Speech Interface*
+![Alt text for the image](images/text_to_speech.png)
+
+
+## Real-World Use Cases for DermaSeek
 
 1. **Medical Education and Training**  
    - **Case-Based Learning**: Facilitates interactive learning for medical students by enabling exploration of dermatological cases using text, image, or voice queries.
@@ -165,6 +173,14 @@ python app.py
    - **Self-Learning**: Patients can explore educational material about their condition with supervised input from healthcare providers.
    - **Community Engagement**: Encourages patient engagement through interactive case discussions in health forums.
 
+## Future Improvements
+- [ ] Advanced filtering options
+- [ ] User authentication system
+- [ ] Case bookmarking
+- [ ] Batch processing
+- [ ] Integration with medical databases
+
+
 ## Contributing
 Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) first.
 
@@ -176,6 +192,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Together AI for LLM capabilities
 - Google Cloud for Text-to-Speech services
 - Open source community for various tools and libraries
+
+## Educational Purpose Disclaimer
+DermaSeek is developed strictly for educational and research purposes. It is not intended for medical diagnosis or treatment decisions. Always consult qualified healthcare professionals for medical advice.
 
 ## Disclaimer
 This software is not intended for medical diagnosis. All medical decisions should be made by qualified healthcare professionals.
