@@ -343,8 +343,8 @@ def create_interface():
                 text_output += f"**Background**: {result['metadata']['background']}\n\n"
 
                 # Summarize Case
-                # summary_text, _ = md.summarize_case_ai(text_output)
-                summary_text = md.summarize_case_hug(text_output)
+                summary_text, _ = md.summarize_case_ai(text_output)
+                # summary_text, _ = md.summarize_case_hug(text_output) #Needs further processing
 
                 # summary_text += f"\n\n**Match Score**: {1 - result['distance']:.2%}\n\n"
 
