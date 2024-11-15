@@ -1,3 +1,4 @@
+import os
 import chromadb
 import json
 import base64
@@ -6,11 +7,17 @@ import uuid
 import time
 import whisper
 import gradio as gr
-import models as md
+# import models as md
 from PIL import Image
 from sentence_transformers import SentenceTransformer
 from transformers import CLIPProcessor, CLIPModel
 from sklearn.metrics.pairwise import cosine_similarity
+from transformers import pipeline
+from together import Together
+from dotenv import load_dotenv
+from google.cloud import texttospeech
+from google.oauth2 import service_account
+from scipy.io import wavfile
 
 
 # Initialize models and client
@@ -30,6 +37,127 @@ image_collection = client.create_collection(
     name="dermatology_image_collection",
     metadata={"hnsw:space": "cosine"}
 )
+
+# Loads the summarizer model
+summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+
+# Load environment variables
+load_dotenv()
+
+# Creates a Together client
+client = Together()
+
+# Load GCP service account info
+service_account_info = {
+    "type": os.getenv("GCP_TYPE"),
+    "project_id": os.getenv("GCP_PROJECT_ID"),
+    "private_key_id": os.getenv("GCP_PRIVATE_KEY_ID"),
+    "private_key": os.getenv("GCP_PRIVATE_KEY").replace("\\n", "\n"),  # Ensure newline characters are preserved
+    "client_email": os.getenv("GCP_CLIENT_EMAIL"),
+    "client_id": os.getenv("GCP_CLIENT_ID"),
+    "auth_uri": os.getenv("GCP_AUTH_URI"),
+    "token_uri": os.getenv("GCP_TOKEN_URI"),
+    "auth_provider_x509_cert_url": os.getenv("GCP_AUTH_PROVIDER_CERT_URL"),
+    "client_x509_cert_url": os.getenv("GCP_CLIENT_CERT_URL")
+}
+
+available_languages = ["US English", "English (India)", "English (UK)", "Arabic", "French (France)"]
+
+language_dict = {
+    "US English": 'en-US-Standard-C',
+    "English (India)": 'en-IN-Standard-A',
+    "English (UK)": 'en-GB-Standard-A',
+    "Arabic": 'ar-XA-Standard-A',
+    "French (France)": 'fr-FR-Standard-A'
+}
+
+# Create the output directory if it doesn't exist
+os.makedirs("output", exist_ok=True)
+
+# Global variable to store the last generated audio path
+last_generated_audio = None
+
+# Create credentials
+credentials = service_account.Credentials.from_service_account_info(service_account_info)
+
+def summarize_case_ai(case: str) -> list[str, str]:
+    """
+    Summarize a case
+
+    Args:
+        case: string containing case to be summarized
+    Returns:
+        A list containing the summarized case and the time taken to summarize
+    """
+    start = time.time()
+    response = client.chat.completions.create(
+        model="meta-llama/Llama-3.2-11B-Vision-Instruct-Turbo",
+        messages=[
+          {"role": "system", "content": "You are a summarization assistant. Your goal is to provide clear, concise summaries that capture the main ideas, key points, and relevant details of the text while avoiding extraneous information. Aim for a summary that is informative but brief, adjusting the level of detail based on the text's length and complexity. Use neutral language and maintain clarity"},
+          {"role": "user", "content": f"{case}"},
+        ],
+        max_tokens=256,
+        temperature=0,
+    )
+
+    end = time.time()
+    total_time = end - start
+    return response.choices[0].message.content, total_time
+
+def text_to_wav(available_language, text):
+    """
+    Convert text to speech using Google Cloud Text-to-Speech API and save as WAV file.
+    
+    Args:
+        available_language (str): The language of choice
+        text (str): The text to convert to speech
+    
+    Returns:
+        str: Path to the generated audio file
+    """
+    # Initialize client
+    client_tts = texttospeech.TextToSpeechClient(credentials=credentials)
+
+    # Last generated audio
+    global last_generated_audio
+    output_path = "output/generated_speech.wav"
+    last_generated_audio = output_path
+
+    voice_name = language_dict[available_language]
+
+    # Extract language code from voice name (e.g., 'en-GB' from 'en-GB-Standard-A')
+    language_code = "-".join(voice_name.split("-")[:2])
+
+    # Create the synthesis input
+    synthesis_input = texttospeech.SynthesisInput(text=text)
+
+    # Configure voice parameters
+    voice = texttospeech.VoiceSelectionParams(
+        language_code=language_code,
+        name=voice_name
+    )
+
+    # Configure audio output
+    audio_config = texttospeech.AudioConfig(
+        audio_encoding=texttospeech.AudioEncoding.LINEAR16
+    )
+
+    # Generate the speech
+    response = client_tts.synthesize_speech(
+        input=synthesis_input,
+        voice=voice,
+        audio_config=audio_config
+    )
+
+    # Save the audio content
+    with open(output_path, "wb") as out:
+        out.write(response.audio_content)
+        print(f'Generated speech saved to "{output_path}"')
+
+    # Calculate the length of the generated speech
+    samplerate, data = wavfile.read(output_path)
+    speech_length = len(data) / samplerate
+    return output_path, speech_length
 
 def get_text_embedding(text):
     """Generate embedding for text content"""
@@ -279,14 +407,14 @@ def create_interface():
     try:
         results, ingestion_time = load_json_data(json_path)
         ingestion_status = (
-            f"**📊 Data Loaded**: {results['success_count']} cases in {ingestion_time:.3f}s\n"
-            f"Successfully loaded: {results['success_count']} cases\n"
-            f"Failed to load: {results['failure_count']} cases"
+            f"**📊 Data Loaded**: {ingestion_time:.3f}s\n"
+            f"**Successful✅**: {results['success_count']}\n"
+            f"**Failed🚫**: {results['failure_count']}"
         )
     except Exception as e:
         ingestion_status = f"**📊 Data Loading Error**: {str(e)}"
     
-    with gr.Blocks(theme=gr.themes.Soft(), css="""
+    with gr.Blocks(theme=gr.themes.Citrus(), css="""
         .center-text {
             text-align: center;
             padding: 1rem;
@@ -294,7 +422,7 @@ def create_interface():
         }
     """) as interface:
         # Header with title
-        gr.Markdown("# DermaSeek", elem_classes='center-text')
+        gr.Markdown("# DermaSeek 🔎", elem_classes='center-text')
         
         # Get the total number of items in collections
         total_text_items = len(text_collection.get()['ids'])
@@ -346,21 +474,24 @@ def create_interface():
                 text_output += f"**Description**: {result['metadata']['description']}\n\n"
                 text_output += f"**Background**: {result['metadata']['background']}\n\n"
 
+                # Customer Heading
+                s_text = "### Case Summary\n\n"
                 # Summarize Case
-                summary_text, _ = md.summarize_case_ai(text_output)
+                summary_text, _ = summarize_case_ai(text_output)
 
 
                 # Store summary text in global variable
                 global text_generated_store
                 text_generated_store = summary_text
-
+                
+                summary_text_edit = s_text + summary_text
                 # summary_text, _ = md.summarize_case_hug(text_output) #Needs further processing
 
                 # summary_text += f"\n\n**Match Score**: {1 - result['distance']:.2%}\n\n"
 
             return (
                 gallery_images,
-                summary_text,
+                summary_text_edit,
                 f"**TOP Match Score [CASE 1]**: {1 - results[0]['distance']:.2%}",
                 f"**⚡ Query Time**: {query_time:.3f}s"
             )
@@ -417,6 +548,7 @@ def create_interface():
             # Left Column - Search Inputs and Suggestions
             with gr.Column(scale=1):
                 # Suggested Queries Section
+                gr.Markdown("")
                 gr.Markdown("### 💡 Suggested Queries")
                 with gr.Row():
                     query_suggestions = gr.Dataset(
@@ -466,25 +598,60 @@ def create_interface():
                     )
                 
                 # Text-to-Speech
+                gr.Markdown("### Text-to-Speech 🗣️")
                 with gr.Row():
-                    gr.Markdown("# Text-to-Speech App")
-                    with gr.Row():
-                        language_dropdown = gr.Dropdown(md.available_languages, label="Select Language", value=md.available_languages[0])
-    
+                    language_dropdown = gr.Dropdown(
+                            choices=available_languages,
+                            label="Select Language",
+                            value=available_languages[0]
+                        )
+
                 with gr.Row():
-                    audio_output = gr.Audio(label="Generated Speech", interactive=False)
-                    generate_button = gr.Button("Generate Speech")
+                    audio_output = gr.Audio(
+                        label="Generated Speech",
+                        interactive=False,
+                        elem_id="tts_output"
+                    )
+                generate_button = gr.Button("Generate Speech")
+                
+                def generate_speech(language):
+                    """
+                    Generate speech from the stored text summary
+                    """
+                    global text_generated_store
+                    if not text_generated_store:
+                        return None, "No text available for conversion"
+                    
+                    try:
+                        audio_path, duration = text_to_wav(language, text_generated_store)
+                        return audio_path, f"Generated audio duration: {duration:.2f} seconds"
+                    except Exception as e:
+                        return None, f"Error generating speech: {str(e)}"
 
                 generate_button.click(
-                    md.text_to_wav, 
-                    inputs=[language_dropdown], 
-                    outputs=[audio_output],
-                    _js=f"(language) => [language, {text_generated_store}]"
+                    fn=generate_speech,
+                    inputs=[language_dropdown],
+                    outputs=[audio_output, gr.Markdown(value="", label="Status")]
                 )
+
+                # with gr.Row():
+                #     gr.Markdown("# Text-to-Speech App")
+                #     with gr.Row():
+                #         language_dropdown = gr.Dropdown(available_languages, label="Select Language", value=available_languages[0])
+    
+                # with gr.Row():
+                #     audio_output = gr.Audio(label="Generated Speech", interactive=False)
+                #     generate_button = gr.Button("Generate Speech")
+
+                # generate_button.click(
+                #     md.text_to_wav, 
+                #     inputs=[language_dropdown, text_generated_store], 
+                #     outputs=[audio_output, None],
+                # )
 
             # Right Column - Results
             with gr.Column(scale=1):
-                gr.Markdown("### Search Results 🔍")
+                gr.Markdown("### Search Results 📋")
                 with gr.Row():
                     # Results Gallery
                     results_gallery = gr.Gallery(

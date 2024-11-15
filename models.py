@@ -30,7 +30,7 @@ service_account_info = {
     "client_x509_cert_url": os.getenv("GCP_CLIENT_CERT_URL")
 }
 
-vailable_languages = ["US English", "English (India)", "English (UK)", "Arabic", "French (France)"]
+available_languages = ["US English", "English (India)", "English (UK)", "Arabic", "French (France)"]
 
 language_dict = {
     "US English": 'en-US-Standard-C',
