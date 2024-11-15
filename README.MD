@@ -35,8 +35,8 @@ DermaSeek is an AI-powered dermatology case search engine that enables medical s
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/dermaseek.git
-cd dermaseek
+git clone https://github.com/GeamXD/DermaSeek.git
+cd DermaSeek
 ```
 
 2. Install dependencies:
@@ -80,7 +80,7 @@ GCP_CLIENT_CERT_URL="your-client-cert-url"
 
 ### Setting up Together AI
 
-1. Sign up at [Together AI](https://www.together.ai)
+1. Sign up at [Together AI](https://api.together.xyz/)
 2. Get your API key from the dashboard
 3. Add to your `.env` file:
 ```env
@@ -130,6 +130,40 @@ python app.py
 - [ ] Mobile application
 - [ ] Improved visualization tools
 - [ ] Integration with medical databases
+
+### Real-World Use Cases for DermaSeek 👀
+
+1. **Medical Education and Training**  
+   - **Case-Based Learning**: Facilitates interactive learning for medical students by enabling exploration of dermatological cases using text, image, or voice queries.
+   - **Knowledge Retention**: Summarized cases and related content linking help students connect symptoms to diagnoses effectively.
+
+2. **Clinical Research**  
+   - **Pattern Recognition Studies**: Supports researchers in identifying patterns and correlations across dermatology cases using multimodal search.
+   - **Data-Driven Insights**: Provides easy access to curated case databases, enabling hypothesis testing and exploratory research.
+
+3. **Healthcare Professionals**  
+   - **Reference Tool**: Acts as a quick reference to compare patient conditions against documented cases during non-critical situations.
+   - **Cross-Verification**: Supports clinicians by offering AI-powered similarity matching for second opinions.
+
+4. **Dermatology Workshops**  
+   - **Interactive Sessions**: Used in workshops to demonstrate diagnostic approaches or to teach symptom analysis.
+   - **Live Querying**: Facilitates real-time searches to educate audiences on dermatological conditions.
+
+5. **Public Health Initiatives**  
+   - **Awareness Campaigns**: Educates laypersons about skin conditions through easy-to-understand case summaries and voice-based navigation.
+   - **Accessibility**: Multilanguage support in text-to-speech makes dermatological education accessible to non-English-speaking regions.
+
+6. **Medical Publishing and Content Creation**  
+   - **Visual and Textual Content**: DermaSeek's AI can assist in creating dermatology-focused educational materials for medical publications, blogs, or courses.
+   - **Curated Case Excerpts**: Enables content creators to include precise and verified examples in their work.
+
+7. **Tech and AI Development**  
+   - **AI Benchmarking**: Used to test and refine multimodal AI models in a healthcare domain.
+   - **Integration Testing**: Provides a testbed for exploring the integration of voice, image, and text in medical applications.
+
+8. **Patient Education**  
+   - **Self-Learning**: Patients can explore educational material about their condition with supervised input from healthcare providers.
+   - **Community Engagement**: Encourages patient engagement through interactive case discussions in health forums.
 
 ## Contributing
 Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) first.
