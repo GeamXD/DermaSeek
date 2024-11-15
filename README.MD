@@ -86,14 +86,18 @@ TOGETHER_API_KEY="your-api-key"
 
 ## Usage
 
-1. Start the application:
+1. Get Data(optional):
+```bash
+python data_collection.py
+```
+
+2. Start the application:
 ```bash
 python app.py
 ```
+3. Open your browser and navigate to `http://localhost:7860`
 
-2. Open your browser and navigate to `http://localhost:7860`
-
-3. Use the interface to:
+4. Use the interface to:
    - Search using text descriptions
    - Upload images for visual search
    - Record voice descriptions
@@ -177,13 +181,6 @@ python app.py
 - [ ] Case bookmarking
 - [ ] Batch processing
 - [ ] Integration with medical databases
-
-
-## Contributing
-Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) first.
-
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 - DermNet NZ for the dermatology cases database
