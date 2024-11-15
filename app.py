@@ -6,6 +6,7 @@ import uuid
 import time
 import whisper
 import gradio as gr
+import models as md
 from PIL import Image
 from sentence_transformers import SentenceTransformer
 from transformers import CLIPProcessor, CLIPModel
@@ -44,7 +45,6 @@ def speech_to_text(audio_file_path: str) -> str:
     """
     #    Implement Whisper integration
     result = model.transcribe(audio_file_path)
-    print(result['text'])
     return result['text']
 
 def calculate_accuracy(image_embedding, query_embedding):
@@ -258,11 +258,11 @@ queries = [
     "Painful bumps",
     "Skin discoloration",
     "Open sores",
-    "Peeling skin",
-    "Itchy blisters",
-    "Cracked skin",
-    "Skin crusting",
-    "Fungal infection signs"
+    # "Peeling skin",
+    # "Itchy blisters",
+    # "Cracked skin",
+    # "Skin crusting",
+    # "Fungal infection signs"
 ]
 
 # Function to populate the query input box with the suggested query
@@ -290,7 +290,7 @@ def create_interface():
         }
     """) as interface:
         # Header with title
-        gr.Markdown("# Dermatology Medical Case Search using ChromaDB", elem_classes='center-text')
+        gr.Markdown("# DermaSeek", elem_classes='center-text')
         
         # Get the total number of items in collections
         total_text_items = len(text_collection.get()['ids'])
@@ -317,7 +317,7 @@ def create_interface():
 
             # Prepare gallery images
             gallery_images = []
-            text_output = "### Case Details\n\n"
+            text_output = "### Case Summary\n\n"
             
             for idx, result in enumerate(results, 1):
                 # Handle image display
@@ -341,11 +341,16 @@ def create_interface():
                 text_output += f"**Title**: {result['metadata']['title']}\n\n"
                 text_output += f"**Description**: {result['metadata']['description']}\n\n"
                 text_output += f"**Background**: {result['metadata']['background']}\n\n"
-                text_output += f"**Match Score**: {1 - result['distance']:.2%}\n\n"
+
+                # Summarize Case
+                summary_text, sum_time = md.summarize_case_ai(text_output)
+                # summary_text = md.summarize_case_hug(text_output)
+
+                # text_output += f"**Match Score**: {1 - result['distance']:.2%}\n\n"
 
             return (
                 gallery_images,
-                text_output,
+                str(summary_text),
                 f"**TOP Match Score**: {1 - results[0]['distance']:.2%}",
                 f"**⚡ Query Time**: {query_time:.3f}s"
             )
@@ -451,8 +456,8 @@ def create_interface():
                     )
 
             # Right Column - Results
-            with gr.Column(scale=2):
-                gr.Markdown("### Search Results")
+            with gr.Column(scale=1):
+                gr.Markdown("### Search Results 🔍")
                 with gr.Row():
                     # Results Gallery
                     results_gallery = gr.Gallery(
@@ -503,4 +508,4 @@ def create_interface():
 # Launch the interface
 if __name__ == "__main__":
     demo = create_interface()
-    demo.launch(share=False, server_name="0.0.0.0", server_port=8080)
+    demo.launch()

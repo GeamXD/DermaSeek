@@ -50,6 +50,7 @@ def summarize_case_ai(case: str) -> list[str, str]:
           {"role": "user", "content": f"{case}"},
         ],
         max_tokens=256,
+        temperature=0,
     )
 
     end = time.time()
