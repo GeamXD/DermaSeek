@@ -140,37 +140,36 @@ python app.py
 
 ## Real-World Use Cases for DermaSeek
 
-1. **Medical Education and Training**  
-   - **Case-Based Learning**: This method facilitates interactive learning for medical students by enabling them to explore dermatological cases using text, image, or voice queries.
-   - **Knowledge Retention**: Summarized cases and related content linking help students connect symptoms to diagnoses effectively.
+1. **Medical Education**  
+   - Interactive case-based learning for students.  
+   - Links symptoms to diagnoses for better knowledge retention.  
 
 2. **Clinical Research**  
-   - **Pattern Recognition Studies**: Supports researchers in identifying patterns and correlations across dermatology cases using multimodal search.
-   - **Data-Driven Insights**: Provides easy access to curated case databases, enabling hypothesis testing and exploratory research.
+   - Identify patterns and correlations in dermatology cases.  
+   - Access curated databases for research and hypothesis testing.  
 
 3. **Healthcare Professionals**  
-   - **Reference Tool**: This tool acts as a quick reference for comparing patient conditions against documented cases during non-critical situations.
-   - **Cross-Verification**: Supports clinicians by offering AI-powered similarity matching for second opinions.
+   - Quick reference for patient condition comparisons.  
+   - AI-powered second opinions through similarity matching.  
 
 4. **Dermatology Workshops**  
-   - **Interactive Sessions**: Used in workshops to demonstrate diagnostic approaches or to teach symptom analysis.
-   - **Live Querying**: Facilitates real-time searches to educate audiences on dermatological conditions.
+   - Demonstrate diagnostics and symptom analysis interactively.  
+   - Real-time searches for audience education.  
 
-5. **Public Health Initiatives**  
-   - **Awareness Campaigns**: Educates laypersons about skin conditions through easy-to-understand case summaries and voice-based navigation.
-   - **Accessibility**: Multilanguage support in text-to-speech makes dermatological education accessible to non-English-speaking regions.
+5. **Public Health**  
+   - Educates the public with simple summaries and voice navigation.  
+   - Multilanguage support enhances accessibility.  
 
-6. **Medical Publishing and Content Creation**  
-   - **Visual and Textual Content**: DermaSeek's AI can help create dermatology-focused educational materials for medical publications, blogs, or courses.
-   - **Curated Case Excerpts**: Enables content creators to include precise and verified examples.
+6. **Medical Publishing**  
+   - Generate educational content for blogs, courses, and publications.  
+   - Include verified dermatology case examples.  
 
-7. **Tech and AI Development**  
-   - **AI Benchmarking**: Used to test and refine multimodal AI models in a healthcare domain.
-   - **Integration Testing**: Provides a testbed for exploring voice, image, and text integration in medical applications.
+7. **AI and Tech Development**  
+   - Benchmark and refine AI models for healthcare.  
+   - Test voice, image, and text integration in medical tools.  
 
 8. **Patient Education**  
-   - **Self-Learning**: Patients can explore educational material about their condition with supervised input from healthcare providers.
-   - **Community Engagement**: Encourages patient engagement through interactive case discussions in health forums.
+   - Help patients learn about conditions with healthcare guidance.  
 
 ## Future Improvements
 - [ ] Advanced filtering options
