@@ -86,7 +86,7 @@ TOGETHER_API_KEY="your-api-key"
 
 ## Usage
 
-1. Get Data(optional):
+1. Get Data (optional):
 ```bash
 python data_collection.py
 ```
