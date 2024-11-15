@@ -141,7 +141,7 @@ python app.py
 ## Real-World Use Cases for DermaSeek
 
 1. **Medical Education and Training**  
-   Case-Based Learning: This method facilitates interactive learning for medical students by enabling them to explore dermatological cases using text, image, or voice queries.
+   - **Case-Based Learning**: This method facilitates interactive learning for medical students by enabling them to explore dermatological cases using text, image, or voice queries.
    - **Knowledge Retention**: Summarized cases and related content linking help students connect symptoms to diagnoses effectively.
 
 2. **Clinical Research**  
