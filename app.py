@@ -265,6 +265,10 @@ queries = [
     # "Fungal infection signs"
 ]
 
+# Global text_generated_store
+text_generated_store = ''
+
+
 # Function to populate the query input box with the suggested query
 def populate_query(suggested_query):
     return suggested_query
@@ -344,6 +348,12 @@ def create_interface():
 
                 # Summarize Case
                 summary_text, _ = md.summarize_case_ai(text_output)
+
+
+                # Store summary text in global variable
+                global text_generated_store
+                text_generated_store = summary_text
+
                 # summary_text, _ = md.summarize_case_hug(text_output) #Needs further processing
 
                 # summary_text += f"\n\n**Match Score**: {1 - result['distance']:.2%}\n\n"
@@ -454,6 +464,23 @@ def create_interface():
                         label="Include related content",
                         value=True
                     )
+                
+                # Text-to-Speech
+                with gr.Row():
+                    gr.Markdown("# Text-to-Speech App")
+                    with gr.Row():
+                        language_dropdown = gr.Dropdown(md.available_languages, label="Select Language", value=md.available_languages[0])
+    
+                with gr.Row():
+                    audio_output = gr.Audio(label="Generated Speech", interactive=False)
+                    generate_button = gr.Button("Generate Speech")
+
+                generate_button.click(
+                    md.text_to_wav, 
+                    inputs=[language_dropdown], 
+                    outputs=[audio_output],
+                    _js=f"(language) => [language, {text_generated_store}]"
+                )
 
             # Right Column - Results
             with gr.Column(scale=1):
