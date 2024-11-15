@@ -131,7 +131,7 @@ python app.py
 *Figure 5: Showing Text search Interface*
 ![Alt text for the image](images/text_search.png)
 
-*Figure 6: Showing Speech Search Interface*
+*Figure 6: Showing Aduio Upload Search Interface*
 ![Alt text for the image](images/speech_search.png)
 
 *Figure 7: Showing Text to Speech Interface*
