@@ -408,13 +408,13 @@ def create_interface():
         results, ingestion_time = load_json_data(json_path)
         ingestion_status = (
             f"**📊 Data Loaded**: {ingestion_time:.3f}s\n"
-            f"**Successful✅**: {results['success_count']}\n"
-            f"**Failed🚫**: {results['failure_count']}"
+            f"**✅Successful**: {results['success_count']}\n"
+            f"**🚫Failed**: {results['failure_count']}"
         )
     except Exception as e:
         ingestion_status = f"**📊 Data Loading Error**: {str(e)}"
     
-    with gr.Blocks(theme=gr.themes.Citrus(), css="""
+    with gr.Blocks(theme=gr.themes.Ocean(), css="""
         .center-text {
             text-align: center;
             padding: 1rem;
