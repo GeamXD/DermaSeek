@@ -11,4 +11,18 @@ Simplified summaries for general audiences:
 "You are a summarization assistant focused on accessibility. Provide summaries that simplify complex ideas, making them easy to understand for a general audience. Keep language straightforward and avoid jargon."
 
 
-DESCRIPTION: DermaSeek is a cutting-edge dermatology case search engine designed for medical professionals, students, and researchers. Leveraging advanced multimodal AI, DermaSeek lets you explore dermatological cases using text, images, or even voice input. With an extensive library of real-world cases powered by ChromaDB, users can instantly find and compare conditions based on symptoms, visual cues, or audio descriptions. Perfect for education, clinical support, and research, DermaSeek transforms case retrieval into an intuitive, interactive experience, making it easier than ever to connect with dermatological knowledge.
+
+
+use case: 
+$ python models.py 
+"
+        summary text:
+                Liana Barrientos, 39, is facing two criminal counts for falsifying a marriage license application in 2010, stating it was her "first and only" marriage, when in reality she had been married nine times between 1999 and 2002, with some occurring as often as two weeks apart. Prosecutors claim the marriages were part of an immigration scam, with some of her husbands filing for permanent residence status shortly after the marriages, and divorces only occurring after the filings were approved. Barrientos has been married to four men, and at one point was married to eight men simultaneously. She faces up to four years in prison if convicted.
+        time taken: 1.2266159057617188 seconds
+        
+@GeamXD ➜ /workspaces/DermaSeek (master) $ python models.py 
+"
+        summary text:
+                [{'summary_text': 'Liana Barrientos has been married 10 times, sometimes within two weeks of each other. Prosecutors say the marriages were part of an immigration scam. She pleaded not guilty at State Supreme Court in the Bronx on Friday.'}]
+        time taken: 11.459121704101562 seconds
+        

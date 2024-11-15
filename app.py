@@ -1,15 +1,15 @@
 import chromadb
-from sentence_transformers import SentenceTransformer
-from transformers import CLIPProcessor, CLIPModel
 import json
 import base64
-from PIL import Image
 import io
 import uuid
-from sklearn.metrics.pairwise import cosine_similarity
 import time
 import whisper
 import gradio as gr
+from PIL import Image
+from sentence_transformers import SentenceTransformer
+from transformers import CLIPProcessor, CLIPModel
+from sklearn.metrics.pairwise import cosine_similarity
 
 
 # Initialize models and client
@@ -503,4 +503,4 @@ def create_interface():
 # Launch the interface
 if __name__ == "__main__":
     demo = create_interface()
-    demo.launch()
+    demo.launch(share=False, server_name="0.0.0.0", server_port=8080)
