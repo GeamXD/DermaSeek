@@ -125,7 +125,6 @@ python app.py
 *Figure 3: Showing Audio recording Interface*
 ![Alt text for the image](images/audio_recording.png)
 
-
 *Figure 4: Showing Image Search Interface*
 ![Alt text for the image](images/image_search.png)
 
