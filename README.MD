@@ -116,7 +116,7 @@ python app.py
 ```
 
 ## Demo
-- Video Demo: [Watch on Loom](https://youtu.be/demo-link)
+- Video Demo: [Watch on Loom](https://www.loom.com/share/f165a244436e454f8d47bf95c5ea871f?sid=5938d90e-4e56-453a-be63-edc8b2f433dc)
 - Live Demo: [Try DermaSeek](https://huggingface.co/spaces/geamxd/DermaSeek)
 
 ## APP OVERVIEW
@@ -192,4 +192,4 @@ python app.py
 DermaSeek is developed strictly for educational and research purposes. It is not intended for medical diagnosis or treatment decisions. Always consult qualified healthcare professionals for medical advice.
 
 ## Disclaimer
-This software is not intended for medical diagnosis. All medical decisions should be made by qualified healthcare professionals.
+This software is not intended for medical diagnosis. Qualified healthcare professionals should make all medical decisions.
